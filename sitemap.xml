@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://nepritomnost.sk/</loc>
+	<lastmod>2020-06-19T10:31:00+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://nepritomnost.sk/index.html</loc>
+	<lastmod>2020-06-19T10:31:00+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://nepritomnost.sk/#!vseobecne-podmienky</loc>
+	<lastmod>2020-06-19T10:31:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://nepritomnost.sk/#!ochrana-osobnych-udajov</loc>
+	<lastmod>2020-06-19T10:31:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://nepritomnost.sk/#!gdpr</loc>
+	<lastmod>2020-06-19T10:31:05+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://nepritomnost.sk/#!zasady-pouzivania-cookies</loc>
+	<lastmod>2020-06-19T10:31:06+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+</urlset>
