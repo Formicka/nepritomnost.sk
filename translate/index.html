@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Translate manager - nepritomnost.sk</title>
+</head>
+
+<body>
+    <h1>Translate manager: EN -> SK</h1>
+
+    <form method="POST" class="form">
+        <div id="dynamicInput" class="form-group">
+
+        </div>
+    </form>
+
+    <script>
+
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+        function readTextFile(file, callback) {
+            var rawFile = new XMLHttpRequest();
+            rawFile.overrideMimeType("application/json");
+            rawFile.open("GET", file, true);
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4 && rawFile.status == "200") {
+                    callback(rawFile.responseText);
+                }
+            }
+            rawFile.send(null);
+        }
+
+        function jsonToFormData(inJSON, inTestJSON, inFormData, parentKey) {
+            var form_data = inFormData || new FormData();
+            var testJSON = inTestJSON || {};
+            for (var key in inJSON) {
+                // 1. If it is a recursion, then key has to be constructed like "parent.child" where parent JSON contains a child JSON
+                // 2. Perform append data only if the value for key is not a JSON, recurse otherwise!
+                var constructedKey = key;
+                if (parentKey) {
+                    constructedKey = parentKey + "." + key;
+                }
+
+                var value = inJSON[key];
+                if (value && value.constructor === {}.constructor) {
+                    // This is a JSON, we now need to recurse!
+                    jsonToFormData(value, testJSON, form_data, constructedKey);
+                } else {
+                    form_data.append(constructedKey, inJSON[key]);
+                    testJSON[constructedKey] = inJSON[key];
+                    $('#dynamicInput').append('<div class="form-row p-2">'
+                        + '<input class="form-control col" type="text" value="' + constructedKey + '" name="keys[]">'
+                        + '<input class="form-control col" value="' + inJSON[key] + '" type="text" name="values[]">'
+                        + '<input class="btn btn-primary col-md-1 save" type="button" name="save" value="save">'
+                        + '</div>');
+                }
+            }
+
+            return form_data;
+        }
+
+        $('body').on('click', ".save", function () {
+
+            var loginForm = $('.form').serializeObject();
+            var keys = loginForm['keys[]'];
+            var values = loginForm['values[]'];
+
+            var loginFormObject = {};
+            $.each(keys, function (i, v) {
+                loginFormObject[v] = values[i];
+            });
+            
+            // @todo call api -> save to file
+
+        });
+
+        readTextFile("locales/sk.json", function (text) {
+            var testJSON = {};
+            var form_data = jsonToFormData(JSON.parse(text), testJSON);
+
+            console.log(form_data);
+        });
+
+
+    </script>
+
+</body>
+
+</html>

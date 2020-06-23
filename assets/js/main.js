@@ -119,7 +119,7 @@ $(function () {
           "color": "#ffffff"
         },
         "image": {
-          "src": "/assets/images/ghost.png.png",
+          "src": "/assets/images/ghost-png.png",
           "width": 50,
           "height": 50
         }
@@ -227,7 +227,7 @@ $(function () {
           "color": "#ffffff"
         },
         "image": {
-          "src": "/assets/images/ghost.png.png",
+          "src": "/assets/images/ghost-png.png",
           "width": 50,
           "height": 50
         }
